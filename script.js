@@ -6,6 +6,8 @@ const uncompletedCounter = document.getElementById("uncompleted-counter");
 const todoListContainer = document.getElementById("todo-lists-container");
 const nullList = document.getElementById("null-list");
 
+
+
 // updating the completed & uncompleted counters
 function updateCounters() {
   const completedTasks = document.querySelectorAll(".completed-task").length;
@@ -92,6 +94,7 @@ function addTask() {
     }
   });
   updateCounters();
+  saveData();
 };
 
 // add task when enter key is used
@@ -197,3 +200,16 @@ audioButton.addEventListener('click', () => {
   }
 
 */
+function saveData(){
+    //this is the method signature ==> localStorage.setItem(key, value)
+    localStorage.setItem("data",todoLists.innerHTML);
+}
+//====this function is used to get data from local storage.===
+function showList(){
+      //this is the medthod signature ==> localStorage.getItem(key);
+      //that data you need to set to listCOntainer. Then you can see your works
+    todoLists.innerHTML = localStorage.getItem("data");
+}
+
+//you need to call to it
+showList();

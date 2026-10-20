@@ -1,0 +1,247 @@
+:root {
+    --white: #f0f0f0;
+    --darkpink: #390a17;
+    --hover: #fec2c2;
+    --pink: #f08585;
+    --grey: #A0A0A0;
+}
+
+html, body {
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 45px;
+}
+
+body {
+background: linear-gradient(rgb(0% 0% 0% / 0.08) 1.00px,transparent 1.00px) 0.00px 0.00px / 20.00px 20.00px,linear-gradient(90deg,rgb(0% 0% 0% / 0.08) 1.00px,transparent 1.00px) 0.00px 0.00px / 20.00px 20.00px,linear-gradient(rgb(0% 0% 0% / 0.08) 1.00px,transparent 1.00px) 0.00px 0.00px / 60.00px 60.00px,linear-gradient(90deg,rgb(0% 0% 0% / 0.08) 1.00px,transparent 1.00px) 0.00px 0.00px / 60.00px 60.00px rgb(100% 87.07% 89.44%);;
+}
+
+/* Layout of Page */
+main {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+}
+
+section {
+    background-color: var(--white);
+    border-radius: 10px;
+    margin: 10px auto;
+    width: 400px;
+    color: var(--darkpink);
+    border: 1px dashed var(--darkpink);
+}
+
+/* Header Styling */
+.header {
+   background-color: var(--pink);
+   border-bottom: 1px solid var(--darkpink);
+   color: var(--white);
+   padding: 3px;
+   border-radius: 10px 10px 0 0;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.header p {
+    padding: 1px 4px;
+}
+.header img {
+    height: 40px;
+}
+
+/* Text Styling */
+h1, h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Button Styling */
+button {
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px;
+gap: 10px;
+color: var(--white);
+border: 1px solid var(--darkpink);
+background-color: var(--pink);
+border-radius: 5px;
+}
+
+button:hover {
+    background-color: var(--hover);
+}
+
+/* Background Noise Section */
+#background-noise-container {
+    height: 200px;
+    width: 250px;
+}
+
+#noise {
+    padding: 10px 8px;
+    border-radius: 10px;
+}
+
+#audio-container form {
+display: flex;
+flex-direction: row;
+gap: 10px;
+justify-content: center;
+align-items: center;
+margin-top: 25px;
+padding: 10px 20px;
+}
+
+
+
+/* To Do List Section */
+#to-do-container {
+    height: 600px;
+    width: 500px;
+
+}
+
+#todo-form {
+    padding: 10px 9px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+#input-box {
+    width: 70%;
+    padding: 10px 5px;
+    border-radius: 5px;
+    border: 1px solid var(--grey);
+    background-color: var(--white);
+}
+ input[type=text]:focus {
+    border: 1px solid var(--pink);
+}
+
+input[type=checkbox] {
+    padding: 0px;
+    text-align: left;
+}
+
+#input-button {
+    width: 20%;
+    font-size: 1.1rem;
+}
+
+#todo-lists-container {
+    padding: 10px 20px;
+    margin-top: 1px;
+    height: 400px;
+    overflow-y: scroll;
+}
+
+/* Task Styling */
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    text-align: left;
+}
+
+li {
+    border: 1px solid var(--grey);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.task-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+svg:hover {
+    fill: var(--hover);
+}
+
+.edit-btn, .delete-btn {
+    float: right;
+    color: var(--pink);
+    cursor: pointer;
+    margin: 3px 5px;
+    border: none;
+    background: none;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+    color: var(--hover);
+    text-decoration: underline;
+}
+
+.completed-task {
+    text-decoration: line-through;
+    color: gray;
+    border: 1px solid gray;
+}
+
+.counter-container {
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    text-align: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+}
+
+/* Timer Styling */
+#timer-container {
+    height: 350px;
+        transition: transform 0.2s;
+}
+
+.timer-circle {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: 30px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: var(--darkpink);
+    border: 5px dashed var(--pink);
+}
+
+.timer-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+#timer {
+    padding: 10px 15px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 45px;
+}
+
+@media screen and (max-width: 600px) {
+    main {
+        flex-direction: column;
+        padding: 10px;
+    }
+  
+}

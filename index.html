@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To Do List App</title>
+  <link href="styles.css" rel="stylesheet" />
+</head>
+
+<body>
+  <main>
+    <section id="background-noise-container">
+      <div class="header">
+        <p>Background Noise</p>
+      </div>
+      <div id="audio-container">
+        <form onsubmit="return false;">
+          <select id="audio-select">
+            <option>Select Audio</option>
+            <option value="audio/oceanwaves.mp3">Ocean Waves</option>
+            <option value="audio/birds.mp3">Birds Chirping</option>
+            <option value="audio/rainforest.mp3">Rainforest</option>
+            <option value="audio/water.mp3">River Stream</option>
+          </select>
+          <button id="audio-button" onclick="submittedAudio()">Play</button>
+        </form>
+        <audio id="audioPlayer" loop>
+          <source id="audio-src" type="audio/mp3" src="">
+        </audio>
+      </div>
+    </section>
+
+    <section id="to-do-container">
+      <div class="header">
+        <p>To Do List App</p>
+        <img
+          src="https://web.archive.org/web/20091027083959im_/http://www.geocities.com/nathanlo9/lesson/checklist.gif" />
+      </div>
+      <div id="todo-form">
+        <input type="text" class="input-item" name="input-box" id="input-box"
+          placeholder="Add a Task here (Ex: Clean closet...)" />
+        <button type="submit" id="input-button" onclick="addTask()">Add</button>
+      </div>
+
+
+      <div id="todo-lists-container">
+        <h2>Upcoming Tasks</h2>
+        <ul id="todo-lists">
+          <p id="null-list" style="text-align: center; color: var(--grey);">Nothing's here yet, go add a task!</p>
+          <label>
+
+        </ul>
+
+      </div>
+      <div class="counter-container">
+        <div class="completed">
+          ✅ Completed: <span id="completed-counter">0</span>
+        </div>
+        <div class="uncompleted">
+          ✍️ Uncompleted:
+          <span id="uncompleted-counter">0</span>
+        </div>
+      </div>
+    </section>
+    <section id="timer-container">
+      <div class="header">
+        <p>Timer</p>
+      </div>
+      <div id="timer-area">
+        <div class="timer-circle">
+         <p>
+          <span class="minutes">30</span>:
+          <span class="seconds">00</span>
+         </p>
+        </div>
+        <div class="timer-buttons">
+          <button id="timerStart" onclick="togglePauseResume()">
+            Start
+          </button>
+          <!-- <button id="timerRestart" onclick="restartTimer()">
+            Restart
+          </button>
+          <button id="timerSelect" onclick="chooseTime()">
+           Select Time
+          </button> -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <footer>
+    Coded with <a href="https://github.com/GarlicCoder">🧄</a>
+    <p>Beta Version 2026</p>
+  </footer>
+
+  <script type="text/javascript" src="script.js"></script>
+</body>
+
+</html>

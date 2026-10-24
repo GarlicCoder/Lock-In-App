@@ -1,8 +1,10 @@
+/* Default Styling */
 :root {
     --white: #f0f0f0;
     --darkpink: #390a17;
-    --hover: #fec2c2;
+    --hover: rgb(250, 87, 87);
     --pink: #f08585;
+    --text: #d84343;
     --grey: #A0A0A0;
 }
 
@@ -13,70 +15,111 @@ html, body {
 }
 
 body {
-background: linear-gradient(rgb(0% 0% 0% / 0.08) 1.00px,transparent 1.00px) 0.00px 0.00px / 20.00px 20.00px,linear-gradient(90deg,rgb(0% 0% 0% / 0.08) 1.00px,transparent 1.00px) 0.00px 0.00px / 20.00px 20.00px,linear-gradient(rgb(0% 0% 0% / 0.08) 1.00px,transparent 1.00px) 0.00px 0.00px / 60.00px 60.00px,linear-gradient(90deg,rgb(0% 0% 0% / 0.08) 1.00px,transparent 1.00px) 0.00px 0.00px / 60.00px 60.00px rgb(100% 87.07% 89.44%);;
+    background: linear-gradient(rgb(0% 0% 0% / 0.08) 1.00px, transparent 1.00px) 0.00px 0.00px / 20.00px 20.00px, linear-gradient(90deg, rgb(0% 0% 0% / 0.08) 1.00px, transparent 1.00px) 0.00px 0.00px / 20.00px 20.00px, linear-gradient(rgb(0% 0% 0% / 0.08) 1.00px, transparent 1.00px) 0.00px 0.00px / 60.00px 60.00px, linear-gradient(90deg, rgb(0% 0% 0% / 0.08) 1.00px, transparent 1.00px) 0.00px 0.00px / 60.00px 60.00px rgb(100% 87.07% 89.44%);
+    ;
+    color: var(--text);
 }
 
 /* Layout of Page */
+header {
+    margin: 10px auto;
+}
+
 main {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(1, 1fr);
     gap: 10px;
-    flex-direction: row;
+    padding: 10px 35px;
+    margin: 5px auto;
+}
+
+/* Columns */
+
+.column {
+    margin: 4px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.column-two {
+    grid-column: span 2 / span 2;
+}
+
+.column-three {
+    grid-column-start: 4;
 }
 
 section {
     background-color: var(--white);
     border-radius: 10px;
-    margin: 10px auto;
     width: 400px;
-    color: var(--darkpink);
     border: 1px dashed var(--darkpink);
 }
 
-/* Header Styling */
-.header {
-   background-color: var(--pink);
-   border-bottom: 1px solid var(--darkpink);
-   color: var(--white);
-   padding: 3px;
-   border-radius: 10px 10px 0 0;
-   display: flex;
-   flex-direction: row;
-   justify-content: space-between;
-   align-items: center;
+.left-area {
+    height: 800px;
+    width: 400px;
 }
 
-.header p {
+.left-area:hover {
+    border: 1px solid var(--grey);
+}
+
+/* Header Styling */
+.widget-header {
+    background-color: var(--pink);
+    border-bottom: 1px solid var(--darkpink);
+    color: var(--white);
+    padding: 3px 10px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.widget-header p {
     padding: 1px 4px;
 }
-.header img {
+
+.widget-header img {
     height: 40px;
 }
 
 /* Text Styling */
 h1, h2 {
     text-align: center;
-    margin-bottom: 15px;
 }
 
 /* Button Styling */
 button {
-display: flex;
-flex-direction: row;
-align-items: center;
-padding: 8px;
-gap: 10px;
-color: var(--white);
-border: 1px solid var(--darkpink);
-background-color: var(--pink);
-border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px;
+    gap: 10px;
+    color: var(--white);
+    border: 1px solid var(--darkpink);
+    background-color: var(--pink);
+    border-radius: 5px;
 }
 
 button:hover {
     background-color: var(--hover);
 }
 
+/* Description App */
+.widget {
+    padding: 20px 30px;
+    text-transform: lowercase;
+}
+
+
 /* Background Noise Section */
-#background-noise-container {
+#background-noise-widget {
     height: 200px;
     width: 250px;
 }
@@ -84,42 +127,82 @@ button:hover {
 #noise {
     padding: 10px 8px;
     border-radius: 10px;
+
+}
+
+#audio-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 40px;
+        margin-top: 25px;
+        gap: 20px;
+
 }
 
 #audio-container form {
-display: flex;
-flex-direction: row;
-gap: 10px;
-justify-content: center;
-align-items: center;
-margin-top: 25px;
-padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
+#audio-select {
+    padding: 10px 15px;
+    border-radius: 40px;
+    border: 3px solid var(--pink);
+}
 
+#audio-select:focus {
+    border: 3px solid var(--hover);
+}
+
+#volumeSlider {
+    display: none;
+}
+
+/* Clock Widget Styling */
+#clock-widget {
+    width: 200px;
+    height: 150px;
+}
+
+#clock-container {
+    padding: 25px 30px;
+    text-align: center;
+}
+
+#clock {
+    font-size: 1.5rem;
+}
 
 /* To Do List Section */
-#to-do-container {
+#to-do-widget {
     height: 600px;
     width: 500px;
 
 }
 
-#todo-form {
-    padding: 10px 9px;
+#to-do-container {
+    padding: 20px 35px;
+}
+
+#to-do-form {
     display: flex;
     flex-direction: row;
     gap: 10px;
 }
 
-#input-box {
+#taskInput {
     width: 70%;
     padding: 10px 5px;
     border-radius: 5px;
     border: 1px solid var(--grey);
     background-color: var(--white);
 }
- input[type=text]:focus {
+
+/* Input Styling */
+input[type=text]:focus {
     border: 1px solid var(--pink);
 }
 
@@ -128,28 +211,29 @@ input[type=checkbox] {
     text-align: left;
 }
 
-#input-button {
-    width: 20%;
+#newTask {
     font-size: 1.1rem;
+    width: 45px;
+    text-align: center;
 }
 
-#todo-lists-container {
+#task-list {
     padding: 10px 20px;
     margin-top: 1px;
     height: 400px;
     overflow-y: scroll;
 }
 
-/* Task Styling */
+/* Task Items */
 
-ul {
+#to-do-container ul {
     list-style: none;
     padding: 0;
     margin-top: 20px;
     text-align: left;
 }
 
-li {
+#to-do-container li {
     border: 1px solid var(--grey);
     border-radius: 5px;
     margin-bottom: 10px;
@@ -159,7 +243,6 @@ li {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
 }
 
 .task-buttons {
@@ -192,21 +275,34 @@ svg:hover {
     border: 1px solid gray;
 }
 
+#lists-header {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
 .counter-container {
-    height: 10%;
     display: flex;
     flex-direction: row;
     gap: 15px;
     text-align: center;
+    align-items: center;
     justify-content: center;
-    font-size: 0.8rem;
-    margin-bottom: 20px;
+    border: 4px solid var(--pink);
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    padding: 18px 20px;
+    font-weight: 600;
 }
 
 /* Timer Styling */
-#timer-container {
+#timer-widget {
     height: 350px;
-        transition: transform 0.2s;
+    transition: transform 0.2s;
 }
 
 .timer-circle {
@@ -235,13 +331,17 @@ svg:hover {
 
 footer {
     text-align: center;
-    margin-top: 45px;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 850px) {
     main {
+        display: flex;
         flex-direction: column;
         padding: 10px;
     }
-  
+
+    section {
+        min-width: 400px !important;
+        max-width: 400px !important;
+    }
 }

@@ -2,108 +2,169 @@
 const inputBox = document.getElementById("input-box");
 const todoLists = document.getElementById("todo-lists");
 const completedCounter = document.getElementById("completed-counter");
-const uncompletedCounter = document.getElementById("uncompleted-counter");
-const todoListContainer = document.getElementById("todo-lists-container");
+const totalCounter = document.getElementById("total-counter");
+const todoListContainer = document.getElementById("lists-container");
 const nullList = document.getElementById("null-list");
 
 
+// @ts-check
 
-// updating the completed & uncompleted counters
-function updateCounters() {
-  const completedTasks = document.querySelectorAll(".completed-task").length;
-  const uncompletedTasks =
-    document.querySelectorAll("li:not(.completed-task)").length;
+let tasks = [];
 
-  completedCounter.textContent = completedTasks;
-  uncompletedCounter.textContent = uncompletedTasks;
-  if (uncompletedTasks === 0 && completedTasks === 0) {
-    nullList.style.display = "block";    
-  }
-  else if (uncompletedTasks === 0 && completedTasks >= 1) {
-    nullList.style.display = "block";
-  nullList.innerText = "All tasks completed! Great job :D";    
-  }
-  else {
-        nullList.style.display = "none";    
-  }
-  console.log(
-    "completed: " + completedTasks + "\n" + "uncompleted: " + uncompletedTasks,
-  );
-}
-
-// add task function
-function addTask() {
-  const task = inputBox.value.trim();
-
-  // if task is null
-  if (!task) {
-    alert("Oops, did you forget to add a task?");
-    console.log("no task has been added");
-    return;
-  }
-
-  // creating the task as a new list element
-  const li = document.createElement("li");
-  li.innerHTML = `
-    <label>
-    <input type="checkbox">
-    <span>${task}</span>
-    </label>
-    <div class="task-buttons">
-    <span class="edit-btn"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--pink)"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg></span>
-    <span class="delete-btn"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--pink)"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg></span></div>
-    `;
-
-  todoLists.appendChild(li);
-
-  // clears the input
-  inputBox.value = "";
-
-  // declare variables
-  const checkbox = li.querySelector("input");
-  const editBtn = li.querySelector(".edit-btn");
-  const taskSpan = li.querySelector("span");
-  const deleteBtn = li.querySelector(".delete-btn");
-
-  // mark task as completed
-  checkbox.addEventListener("click", function () {
-    li.classList.toggle("completed-task", checkbox.checked);
-    updateCounters();
-  });
-
-  // edit button
-  editBtn.addEventListener("click", function () {
-    const update = prompt("Edit task:", taskSpan.textContent);
-    if (update !== null) {
-      taskSpan.textContent = update;
-      li.classList.remove("completed-task");
-      checkbox.checked = false;
-      updateCounters();
+document.addEventListener("DOMContentLoaded", () => {
+    try {
+        tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    } catch {
+        tasks = [];
     }
-  });
+    updateTasksList();
+    updateStats();
+});
 
-  // delete function
-  deleteBtn.addEventListener("click", function () {
-    if (
-      confirm(
-        "Warning! You're about to delete this task. Are you sure you'd like to proceed?",
-      )
-    ) {
-      li.remove();
-      updateCounters();
-    }
-  });
-  updateCounters();
-  saveData();
+
+const saveTasks = () => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
-// add task when enter key is used
-inputBox.addEventListener("keyup", function (event) {
-  if (event.key === "Enter") {
-    addTask();
-  }
+const addTask = () => {
+    const taskInput = document.getElementById('taskInput');
+    const text = taskInput.value.trim();
+
+    if (text) {
+        tasks.push({ text: text,completed: false});
+        taskInput.value = "";
+        updateTasksList();
+        updateStats();
+        saveTasks();
+    }
+};
+
+const toggleTaskComplete = (index) => {
+    tasks[index].completed = !tasks[index].completed;
+    updateTasksList();
+    updateStats();
+    saveTasks();
+};
+
+const deleteTask = (index) => {
+    tasks.splice(index, 1);
+    updateTasksList();
+    updateStats();
+    saveTasks();
 }
-);
+
+
+const updateStats = () => {
+    const completedTasks = tasks.filter(task => task.completed).length;
+    const totalTasks = tasks.length;
+    const progress = totalTasks ? (completedTasks / totalTasks) * 100 : 0;
+    const progressBar = document.getElementById("progress");
+
+    progressBar.style.width = `${progress}%`;
+
+    document.getElementById("numbers").innerText = `${completedTasks} / ${totalTasks}`;
+
+    if (tasks.length && completedTasks === totalTasks) {
+        blastConfetti();
+    }
+};
+
+const updateTasksList = () => {
+    const taskList = document.getElementById("task-list");
+    taskList.replaceChildren();
+
+    tasks.forEach((task, index) => {
+        const listItem = document.createElement("li");
+        const taskItem = document.createElement("div");
+        taskItem.className = "taskItem";
+
+        const taskContent = document.createElement("div");
+        taskContent.className = `task ${task.completed ? "completed" : ""}`;
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "checkbox";
+        checkbox.checked = task.completed;
+        checkbox.addEventListener("change", () => toggleTaskComplete(index));
+
+        const text = document.createElement("p");
+        text.textContent = task.text;
+
+        const buttons = document.createElement("div");
+        buttons.className = "task-buttons";
+
+        const editButton = document.createElement("button");
+        editButton.type = "button";
+        editButton.textContent = "Edit";
+        editButton.addEventListener("click", () => {
+            startInlineEdit(task, index, text);
+        });
+
+        const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.textContent = "Delete";
+        deleteButton.addEventListener("click", () => deleteTask(index));
+
+        taskContent.append(checkbox, text);
+        buttons.append(editButton, deleteButton);
+        taskItem.append(taskContent, buttons);
+        listItem.appendChild(taskItem);
+        taskList.appendChild(listItem);
+    });
+};
+
+const startInlineEdit = (task, index, textElement) => {
+    const originalText = task.text;
+    const input = document.createElement("input");
+    input.type = "text";
+    input.className = "task-edit-input";
+    input.value = originalText;
+
+    textElement.replaceWith(input);
+    input.focus();
+    input.select();
+
+    let finished = false;
+
+    const finish = (save) => {
+        if (finished) return;
+        finished = true;
+
+        if (save) {
+            task.text = input.value.trim() || originalText;
+            saveTasks();
+        }
+
+        updateTasksList();
+        updateStats();
+    };
+
+    input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") finish(true);
+        if (event.key === "Escape") finish(false);
+    });
+
+    input.addEventListener("blur", () => finish(true));
+};
+
+
+document.getElementById("newTask").addEventListener("click", function (e) {
+    e.preventDefault()
+    addTask()
+});
+
+const blastConfetti = () => {
+    function randomInRange(min, max) {
+  return Math.random() * (max - min) + min;
+}
+confetti({
+  angle: randomInRange(55, 125),
+  spread: randomInRange(50, 70),
+  particleCount: randomInRange(50, 100),
+  origin: { y: .6 }
+});
+}
+
 
 
 // play background noise
@@ -140,11 +201,24 @@ audioButton.addEventListener('click', () => {
       audioPlayer.pause();
       audioButton.textContent = 'Play';
     }
+    volumeSlider.style.display = "block";
   });
 
+  // increase and decrease volume
+  const volumeSlider = document.getElementById('volumeSlider');
+ 
+  // Update audio volume when slider changes
+  volumeSlider.addEventListener('input', () => {
+    audioPlayer.volume = volumeSlider.value;
+  });
+ 
+  // Optional: Sync slider with audio volume if volume changes programmatically
+  audioPlayer.addEventListener('volumechange', () => {
+    volumeSlider.value = audioPlayer.volume;
+  });
 
   // timer functionality 
- const bells = new Audio("/audio/bell.mp3");
+ const bells = new Audio("audio/bell.mp3");
  const timerStart = document.getElementById('timerStart');
  const session = document.querySelector('.minutes');
  let myInterval;
@@ -160,18 +234,14 @@ audioButton.addEventListener('click', () => {
     const updateSeconds = () => {
       const minuteDiv = document.querySelector('.minutes');
       const secondsDiv = document.querySelector('.seconds');
-
       totalSeconds--;
-
       let minutesLeft = Math.floor(totalSeconds / 60);
       let secondsLeft = totalSeconds % 60;
-
       if (secondsLeft < 10) {
         secondsDiv.textContent = "0" + secondsLeft;
       } else {
         secondsDiv.textContent = secondsLeft;
       }
-
       minuteDiv.textContent = `${minutesLeft}`;
       
       if (minutesLeft === 0 && secondsLeft === 0) {
@@ -180,24 +250,53 @@ audioButton.addEventListener('click', () => {
       }
     };
     myInterval = setInterval(updateSeconds, 1000);
+    timerStart.innerHTML= "Timer has begun!";
+    timerStart.disabled = true;
+
   } else {
     alert('Session has already started!');
   }
  };
 
+
+
  timerStart.addEventListener("click", appTimer);
 
 
-  /*
-  function saveTasksToLocalStorage() {
-    const tasks = [];
-    document.querySelectorAll('#todo-lists li').forEach(task => {
-      const taskText = task.querySelector('span').textContent;
-      const isCompleted = task.classList.contains('completed');
-      tasks.push({text: taskText, completed: isCompleted});
-    })
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  }
+/* Clock Widget */
+setInterval(showTime, 1000);
+function showTime() {
+  let time = new Date();
+  let hour = time.getHours();
+  let min = time.getMinutes();
+  let sec = time.getSeconds();
+  am_pm = "AM";
 
-*/
+  // setting time for 12 hrs format
+  if (hour >= 12) {
+    if (hour > 12) hour -= 12;
+    am_pm = "PM";
+  } else if (hour === 0) {
+    hr = 12;
+    am_pm = "AM"
+  }
+  hour = 
+  hour < 10 ? "0" + hour : hour;
+  min = min < 10 ? "0" + min : min;
+  sec = sec <10 ? "0" + sec : sec;
+
+  let currentTime = 
+  hour + 
+  ":" + 
+  min + 
+  ":" +
+  sec + 
+  " " +
+  am_pm;
+
+  //displaying the time
+  document.getElementById('clock').innerHTML = currentTime;
+}
+
+showTime();
 

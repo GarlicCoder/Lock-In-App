@@ -262,6 +262,7 @@ input[type=checkbox] {
     font-size: 1.1rem;
     width: 45px;
     text-align: center;
+ 
 }
 
 #task-list {
@@ -292,10 +293,22 @@ input[type=checkbox] {
     align-items: center;
 }
 
+.taskItem {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+width: 100%;
+gap: 20px;
+}
+.task {
+    display: flex;
+}
 .task-buttons {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    gap: 10px
+    ;
 }
 
 svg:hover {
@@ -378,7 +391,9 @@ footer {
     text-align: center;
 }
 
-@media screen and (max-width: 850px) {
+
+
+@media screen and (max-width: 1000px) {
     main {
         display: flex;
         flex-direction: column;

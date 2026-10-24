@@ -405,3 +405,17 @@ footer {
         max-width: 400px !important;
     }
 }
+
+@media screen and (max-width: 400px) {
+    main {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    section {
+       max-width: 300px !important;
+              min-width: 300px !important;
+
+    }
+}

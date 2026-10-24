@@ -246,6 +246,8 @@ audioButton.addEventListener('click', () => {
       
       if (minutesLeft === 0 && secondsLeft === 0) {
         bells.play();
+    bells.play();
+
         clearInterval(myInterval);
       }
     };

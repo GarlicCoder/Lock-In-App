@@ -24,30 +24,8 @@
          <img src="images/lock_in_meme.jpg" width="200px">
          <p><strong>Beta Mode:</strong> This is the beta mode, so some widgets are missing or might be glitchy. pls let me know if u experience any bugs or if u have ideas!</p>
         </div>
-      <section id="background-noise-widget">
-        <div class="widget-header">
-          <p>Background Noise</p>
-        </div>
-        <div id="audio-container">
-          <form onsubmit="return false;">
-            <select id="audio-select">
-              <option>Select Audio</option>
-              <option value="audio/oceanwaves.mp3">Ocean Waves</option>
-              <option value="audio/birds.mp3">Birds Chirping</option>
-              <option value="audio/rainforest.mp3">Rainforest</option>
-              <option value="audio/water.mp3">River Stream</option>
-            </select>
-            <button id="audio-button" onclick="submittedAudio()">Play</button>
-            <!-- HTML: Volume slider -->
-
-
-          </form>
-          <audio id="audioPlayer" loop>
-            <source id="audio-src" type="audio/mp3" src="">
-          </audio>
-          <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.7">
-        </div>
-      </section>
+        </section>
+  
       <section id="youtube-widget" style="display: none;">
         <div class="widget-header">
           <p>youtube player</p>
@@ -95,18 +73,26 @@
           <p>To Do List</p>
         </div>
         <div id="to-do-container">
-          <div id="stats-container">
-            <div id="progressBar">
-              <div id="progress"></div>
-            </div>
-            <div class="stats-numbers">
-              <p id="numbers">0 / 0</p>
-            </div>
-          </div>
+    
+         
           <form id="to-do-form" action="">
             <input type="text" id="taskInput" placeholder="Add a task! (Debug JavaScript code...)">
             <button id="newTask" type="submit">+</button>
           </form>
+                                        
+
+           <div id="stats-container">
+            <div class="progress-bar-container">
+  <p>Task Bar</p>
+     <div id="progressBar">
+              <div id="progress"></div>
+            </div>
+            </div>
+         
+            <div class="stats-numbers">
+              <p id="numbers">0 / 0</p>
+            </div>
+          </div>
           <ul id="task-list">
 
           </ul>
@@ -115,6 +101,30 @@
       </section>
     </div>
     <div class="column column-three">
+          <section id="background-noise-widget">
+        <div class="widget-header">
+          <p>Background Noise</p>
+        </div>
+        <div id="audio-container">
+          <form onsubmit="return false;">
+            <select id="audio-select">
+              <option>Select Audio</option>
+              <option value="audio/oceanwaves.mp3">Ocean Waves</option>
+              <option value="audio/birds.mp3">Birds Chirping</option>
+              <option value="audio/rainforest.mp3">Rainforest</option>
+              <option value="audio/water.mp3">River Stream</option>
+            </select>
+            <button id="audio-button" onclick="submittedAudio()">Play</button>
+            <!-- HTML: Volume slider -->
+
+
+          </form>
+          <audio id="audioPlayer" loop>
+            <source id="audio-src" type="audio/mp3" src="">
+          </audio>
+          <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.7">
+        </div>
+      </section>
       <section id="clock-widget">
         <div class="widget-header">
           <p>Clock</p>
